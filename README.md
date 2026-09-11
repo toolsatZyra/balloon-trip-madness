@@ -4,7 +4,13 @@ A separate browser fan recreation of **C — Balloon Trip**, the survival mode i
 
 ## Run
 
-Requires Node 22.12+ or 24. `npm ci`, then `npm run dev` (http://127.0.0.1:4182). `npm test` checks simulation behavior. `npm run build` creates `dist`; `npm run preview` serves it on 4183. Vercel's Vite preset and Netlify can serve the static output without environment variables or a backend.
+Requires Node 22.12+ or 24. `npm ci`, then `npm run dev` (http://127.0.0.1:4182). `npm test` checks simulation behavior. `npm run build` creates `dist`; `npm run preview` serves it on 4183. Gameplay is static; the shared counter uses the existing Netlify API.
+
+## GitHub and Vercel
+
+Repository: https://github.com/toolsatZyra/balloon-trip-madness — branch `main`.
+
+Import this repository into Vercel with the repository root as the Root Directory. `vercel.json` supplies the Vite preset, `npm run build`, and `dist` output. No environment variables are needed. The games-played counter shares the existing Netlify total, so keep the Netlify site and its function active. Creating the Vercel project is the user's next step; no Vercel project has been created by this handoff.
 
 ## Play
 
