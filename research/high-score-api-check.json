@@ -1,0 +1,16 @@
+{
+  "endpoint": "https://6aa3d5df62fd1b6b537b450f--balloon-fight-zyra.netlify.app/api/high-score",
+  "before": {
+    "trip": 120
+  },
+  "runs": [
+    {
+      "mode": "trip",
+      "computedScore": 332,
+      "sharedHighScore": 332,
+      "commands": 178
+    }
+  ],
+  "arbitraryScoreRejected": true,
+  "passed": true
+}

@@ -1,6 +1,8 @@
 import './style.css';
 import './game-counter.css';
+import './high-score.css';
 import './game-counter.js';
+import { beginScoreRun, resizeScoreRun, completeScoreRun, refreshHighScore } from './high-score.js';
 import {Flight,STEP} from './flight.js';
 import {boot} from './scene.js';
 const $=id=>document.getElementById(id),seed=()=>crypto.getRandomValues(new Uint32Array(1))[0];
@@ -18,10 +20,10 @@ function panel(kind){clearInput();$('panel').hidden=false;$('instructions').hidd
 }
 const app={state:'home',model:new Flight(seed()),acc:0,width:1000,qa:false,
  ready(){this.scene=this.game.scene.getScene('Sky');$('start').disabled=false;$('start').innerHTML='Back in the air <span>→</span>';},
- resize(width){this.width=width;const ratio=width/this.model.width;this.model.width=width;this.model.player.x=Math.min(width-26,this.model.player.x*ratio);if(this.state==='home')this.model.reset(this.model.seed);},
- start(same=false){clearInput();this.model=new Flight(same?this.model.seed:seed(),this.width);this.state='playing';this.acc=0;$('home').hidden=true;$('panel').hidden=true;$('hud').hidden=false;$('pause').hidden=false;$('touch').hidden=false;document.querySelector('footer').hidden=true;this.model.flap();notice('← → to steer · Space or ↑ to flap');document.activeElement?.blur();},
+ resize(width){this.width=width;resizeScoreRun(width);const ratio=width/this.model.width;this.model.width=width;this.model.player.x=Math.min(width-26,this.model.player.x*ratio);if(this.state==='home')this.model.reset(this.model.seed);},
+ start(same=false){clearInput();this.model=new Flight(same?this.model.seed:seed(),this.width);beginScoreRun(this.model,'trip',this.width);this.state='playing';this.acc=0;$('home').hidden=true;$('panel').hidden=true;$('hud').hidden=false;$('pause').hidden=false;$('touch').hidden=false;document.querySelector('footer').hidden=true;this.model.flap();notice('← → to steer · Space or ↑ to flap');document.activeElement?.blur();},
  pause(){if(this.state!=='playing')return;this.state='paused';this.acc=0;panel('pause');},
- home(){this.qa=false;this.state='home';clearInput();$('panel').hidden=true;$('home').hidden=false;$('hud').hidden=true;$('pause').hidden=true;$('touch').hidden=true;document.querySelector('footer').hidden=false;this.model.reset(seed());$('start').focus();},
+ home(){this.qa=false;this.state='home';clearInput();$('panel').hidden=true;$('home').hidden=false;$('hud').hidden=true;$('pause').hidden=true;$('touch').hidden=true;document.querySelector('footer').hidden=false;this.model.reset(seed());refreshHighScore();$('start').focus();},
  tick(dt){
   if(this.state==='playing'){
    this.acc+=dt;let axis=Number(inputs.keys.has('ArrowRight')||inputs.keys.has('KeyD')||[...inputs.pointers.values()].includes('right'))-Number(inputs.keys.has('ArrowLeft')||inputs.keys.has('KeyA')||[...inputs.pointers.values()].includes('left'));
@@ -45,7 +47,7 @@ const app={state:'home',model:new Flight(seed()),acc:0,width:1000,qa:false,
   document.getElementById('flight-level').textContent=this.model.level;
   if(import.meta.env.DEV){$('metrics').textContent=JSON.stringify({state:this.state,seed:this.model.seed,time:+this.model.time.toFixed(2),player:this.model.player,score:Math.floor(this.model.score),collected:this.model.collected,sparks:this.model.sparks.length,level:this.model.level,sparkSpeed:this.model.sparkSpeed,roaming:this.model.sparks.filter(s=>s.roaming).length,starPositions:this.model.sparks.filter(s=>s.roaming).slice(0,3).map(s=>({x:s.x,y:s.y,vx:s.vx,vy:s.vy})),sound,frameMs:Math.round(dt*1000)});}
  },
- over(){this.qa=false;this.state='over';const score=Math.floor(this.model.score);best=Math.max(best,score);try{localStorage.setItem('balloon-fight.best',String(best));}catch{}$('best').textContent=String(best).padStart(6,'0');$('final-score').textContent=score.toLocaleString();$('final-balloons').textContent=this.model.collected;$('final-chain').textContent=this.model.bestStreak;$('pause').hidden=true;$('touch').hidden=true;panel('over');}
+ over(){completeScoreRun();this.qa=false;this.state='over';const score=Math.floor(this.model.score);best=Math.max(best,score);try{localStorage.setItem('balloon-fight.best',String(best));}catch{}$('best').textContent=String(best).padStart(6,'0');$('final-score').textContent=score.toLocaleString();$('final-balloons').textContent=this.model.collected;$('final-chain').textContent=this.model.bestStreak;$('pause').hidden=true;$('touch').hidden=true;panel('over');}
 };
 $('start').onclick=()=>app.start();$('pause').onclick=()=>app.pause();$('back').onclick=()=>app.home();$('same').onclick=()=>app.start(true);
 $('continue').onclick=()=>{if(app.panelKind==='over')app.start();else if(app.panelKind==='pause'){app.state='playing';$('panel').hidden=true;clearInput();document.activeElement?.blur();}else{$('panel').hidden=true;$('start').focus();}};

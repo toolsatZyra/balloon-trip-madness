@@ -50,3 +50,7 @@ September 11 tuning review: the 390x844 gameplay layout fits the enlarged charac
 ## Shared home-screen counter
 
 The top badge reads **Number of games played** and counts home-page loads from a starting offset of 179. Each successful reload increments a persistent shared total; open home screens refresh every five seconds. A Netlify Function and Blobs store power the counter. See [research/COUNTER.md](research/COUNTER.md) for semantics, development setup, tests, and deployment instructions. There are now 23 tests. Gameplay remains available if the counter service is unavailable.
+
+## Shared high score
+
+The home screen prominently displays a shared high score starting at 120, supplied by the user. Completed runs are replayed on the server before a higher score is saved. Personal best stays separate. Vercel and Netlify share the same score service. See [research/HIGH_SCORE.md](research/HIGH_SCORE.md) for validation, verification, and limits. All 29 tests pass.
