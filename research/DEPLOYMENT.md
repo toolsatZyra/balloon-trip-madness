@@ -14,3 +14,5 @@ September 11 counter update: current production deploy is 6aa3cf6fdc425b46656856
 ## GitHub and Vercel handoff
 
 Repository: https://github.com/toolsatZyra/balloon-trip-madness, main branch. This supersedes the earlier no-remote notes. Vercel configuration is committed in vercel.json with Vite, npm run build, and dist. The user will create and connect the Vercel project. All 23 tests and the production build passed for this handoff; the existing counter API returned HTTP 200 with CORS enabled for access from Vercel. No counter increment was made by that API read. No Vercel project was provisioned by the agent.
+
+September 11 high-score update: current production deploy is 6aa3d6d3533e5f5a7456406e, with the large shared high-score display and replay-validating score function. The production API returned the user-supplied starting record of 120; test runs only affected preview scores. All 29 tests pass; all eight published static files match the build. Code commit 42496d7 was pushed to main and the connected Vercel project reported a successful deployment. See HIGH_SCORE.md and high-score-api-check.json.

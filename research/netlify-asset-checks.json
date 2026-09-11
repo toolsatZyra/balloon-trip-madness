@@ -9,7 +9,7 @@
     "path": "index.html",
     "status": 200,
     "hashMatches": true,
-    "bytes": 4111
+    "bytes": 4240
   },
   {
     "path": "PHASER-LICENSE.md",
@@ -18,16 +18,16 @@
     "bytes": 1120
   },
   {
-    "path": "assets/index-DqHTmTrX.js",
+    "path": "assets/index-BoVRexut.js",
     "status": 200,
     "hashMatches": true,
-    "bytes": 1230970
+    "bytes": 1233016
   },
   {
-    "path": "assets/index-IMnk1z73.css",
+    "path": "assets/index-DZiqQ-wy.css",
     "status": 200,
     "hashMatches": true,
-    "bytes": 8513
+    "bytes": 9666
   },
   {
     "path": "fonts/dm-sans-bold.ttf",
