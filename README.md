@@ -1,4 +1,4 @@
-# Balloon Fight — Back in the air
+# Balloon Trip Madness
 
 A separate browser fan recreation of **C — Balloon Trip**, the survival mode in Nintendo's Balloon Fight. Smooth, newly drawn red balloons, cap, blue outfit, animated arms, a midnight sea, and glowing lightning sparks preserve the recognizable visual idea. This is an independently rebuilt game, not an emulator or an exact reproduction of the NES program. Nintendo created the original game and character; no ROM, ripped sprites, original music, or original source code is bundled.
 

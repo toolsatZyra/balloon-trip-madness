@@ -8,3 +8,8 @@
 @media(max-width:700px){#touch:not([hidden]){display:flex}}
 
 @media(max-width:480px){#hud{gap:18px}}
+
+/* Keep the full game name readable alongside the balloonist. */
+h1{font-size:clamp(54px,6.8vw,102px);letter-spacing:-.055em;line-height:.92}
+@media(max-width:700px){h1{font-size:clamp(40px,13.3vw,70px)}.home-copy .lead{max-width:230px}}
+@media(max-height:600px) and (min-width:701px){h1{font-size:65px}}
