@@ -31,6 +31,7 @@ const app={state:'home',model:new Flight(seed()),acc:0,width:1000,qa:false,
      if(e.type==='balloon'){this.scene.burst(e.x,e.y,0x9aefbe);tone(600);if(e.bonus)notice('PERFECT 20 · +1,000');}
      if(e.type==='bubble'){this.scene.burst(e.x,e.y,0xb9e8ff);tone(900,.2);notice('A little breathing room · scrolling paused');}
      if(e.type==='flap')tone(230,.045);
+     if(e.type==='level')notice('Level '+e.level+' · the sparks are picking up speed');
      if(e.type==='fish-warning')notice('Something’s stirring below…');
      if(e.type==='hit'){this.scene.burst(e.x,e.y-25,0xff8992,25);tone(100,.25);this.over();}
     }
@@ -39,7 +40,8 @@ const app={state:'home',model:new Flight(seed()),acc:0,width:1000,qa:false,
    if(this.qa&&this.model.time>=35){this.qa=false;this.pause();}
   }
   $('score').textContent=String(Math.floor(this.model.score)).padStart(6,'0');$('collected').textContent=String(this.model.collected).padStart(2,'0');$('chain').innerHTML=`${this.model.streak%20} <span>/ 20</span>`;$('chain-fill').style.width=`${this.model.streak%20/20*100}%`;
-  if(import.meta.env.DEV){$('metrics').textContent=JSON.stringify({state:this.state,seed:this.model.seed,time:+this.model.time.toFixed(2),player:this.model.player,score:Math.floor(this.model.score),collected:this.model.collected,sparks:this.model.sparks.length,sound,frameMs:Math.round(dt*1000)});}
+  document.getElementById('flight-level').textContent=this.model.level;
+  if(import.meta.env.DEV){$('metrics').textContent=JSON.stringify({state:this.state,seed:this.model.seed,time:+this.model.time.toFixed(2),player:this.model.player,score:Math.floor(this.model.score),collected:this.model.collected,sparks:this.model.sparks.length,level:this.model.level,sparkSpeed:this.model.sparkSpeed,roaming:this.model.sparks.filter(s=>s.roaming).length,starPositions:this.model.sparks.filter(s=>s.roaming).slice(0,3).map(s=>({x:s.x,y:s.y,vx:s.vx,vy:s.vy})),sound,frameMs:Math.round(dt*1000)});}
  },
  over(){this.qa=false;this.state='over';const score=Math.floor(this.model.score);best=Math.max(best,score);try{localStorage.setItem('balloon-fight.best',String(best));}catch{}$('best').textContent=String(best).padStart(6,'0');$('final-score').textContent=score.toLocaleString();$('final-balloons').textContent=this.model.collected;$('final-chain').textContent=this.model.bestStreak;$('pause').hidden=true;$('touch').hidden=true;panel('over');}
 };

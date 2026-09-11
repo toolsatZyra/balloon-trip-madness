@@ -13,13 +13,15 @@ Requires Node 22.12+ or 24. `npm ci`, then `npm run dev` (http://127.0.0.1:4182)
 - Collect green balloons for 100 points. Twenty consecutive balloons give 1,000 extra points. Missing a balloon resets the chain after it leaves the screen.
 - The course travels from left to right across the screen, so you advance toward the left, matching Balloon Trip.
 - Avoid moving sparks and the sea. A ripple warns before a fish attacks a player lingering near the surface.
+- After an eight-second gentle opening, sparks roam across the full playable height on independent diagonal paths and bounce off all four edges. Every 15 seconds raises the level; star speed eases up by 8%, capped at 2.2 times the initial speed. The population gradually grows, bounded between 9 and 22 depending on screen width and level.
+- The balloonist and both balloons are 10% larger, with collision bounds scaled to match.
 - Collect a bubble for 200 points and three seconds without world scrolling. You and the sparks can still move.
 - P/Escape pauses. Losing focus or resizing pauses automatically. Start a fresh randomized sky or retry the same seed from the result panel.
 - Sound is off until explicitly enabled. Effects are newly synthesized; original music is not reproduced.
 
 ## Implementation
 
-Phaser 3 + Vite. Simulation is separate from the renderer at a fixed 120 Hz. Smooth canvas artwork is created at four times its displayed size, then animated as reused textures. DPR is capped at 2. Entity counts are bounded by recycling off-screen columns. DOM menus, local fonts, keyboard and multi-touch inputs, separate local best-score storage, and reduced-motion styling are included. Courses have reserved safe bands; hazard motion is continuous and bounded. The specific physics constants, safe-band generation, progression, and fish timing are this recreation's design choices, not reverse-engineered NES code.
+Phaser 3 + Vite. Simulation is separate from the renderer at a fixed 120 Hz. Smooth canvas artwork is created at four times its displayed size, then animated as reused textures. DPR is capped at 2. Entity counts are bounded by recycling off-screen columns and capping roaming stars. DOM menus, local fonts, keyboard and multi-touch inputs, separate local best-score storage, and reduced-motion styling are included. The opening has reserved safe bands; subsequent stars traverse the whole field with reflected overshoot at its edges. Physics constants, trajectories, progression, and fish timing are this recreation's design choices, not reverse-engineered NES code.
 
 ## References and attribution
 
@@ -30,9 +32,11 @@ Phaser 3 + Vite. Simulation is separate from the renderer at a fixed 120 Hz. Smo
 
 ## Verification and limits
 
-13 simulation tests pass, including acceleration/braking, retained drift, additive lift, collision with either balloon, sea, fish warning, score and streak, bubble behavior, seed reproducibility, and safe-band bounds. Desktop browser run survived 35 seconds and collected eight balloons, with sound off and no captured console warnings/errors. Desktop and 390×844 title layouts reviewed visually. Browser keyboard start/pause/resume reviewed. Physical touch hardware and audible sound have not been reviewed. Phaser's production bundle produces Vite's size advisory; this is not a build failure.
+16 simulation tests pass, including acceleration/braking, retained drift, lift, balloon collision, sea, fish warning, score and streak, bubble behavior, seed reproducibility, full-height star traversal, reflected trajectories, bounded star population, level speed easing, and enlarged collision geometry. The revised desktop browser run showed 12 independent roaming stars and ended in a spark collision at 11.34 seconds with one balloon collected. The simple development controller follows collectibles and does not avoid roaming stars; this run does not establish human difficulty balance. The enlarged title character was reviewed visually, with sound off and no captured console warnings/errors. Desktop and phone layouts were reviewed in the preceding release. Physical touch hardware and audible sound have not been reviewed. Phaser's production bundle produces Vite's size advisory; this is not a build failure.
 
 Developer-only `?verify=1` exposes a 35-second controller run, release button, and braking check. Controls are removed from production builds. The reconstruction covers Balloon Trip only, not the original A/B combat modes or two-player mode.
 
 Play online: https://balloon-fight-zyra.netlify.app/
 
+
+September 11 tuning review: the 390x844 gameplay layout fits the enlarged character and four HUD groups. Nine roaming stars were active; the collectible-following development controller collected four balloons before a collision at 14.49 seconds. This controller does not choose avoidance routes.

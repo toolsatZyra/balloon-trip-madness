@@ -1,6 +1,6 @@
 import Phaser from 'phaser';
 import {makeArt} from './art.js';
-import {HEIGHT,WATER,rng} from './flight.js';
+import {HEIGHT,WATER,rng,PLAYER_SCALE} from './flight.js';
 export class Sky extends Phaser.Scene {
  constructor(app){super('Sky');this.app=app;this.entities=new Map();this.effects=[];this.elapsed=0;}
  create(){
@@ -36,7 +36,7 @@ export class Sky extends Phaser.Scene {
    for(const b of m.bubbles){active.add(b.id);this.addEntity(b.id,'bubble',b.x,b.y,48,48).setPosition(b.x,b.y+Math.sin(t)*3).setVisible(!b.taken);}
    for(const[id,v]of this.entities)if(!active.has(id)){v.destroy();this.entities.delete(id);}
    const p=m.player;const heroScale=w<600?2.2:3.25;const heroX=w<600?w*.77:w*.73,heroY=w<600?350:300;
-   this.playerView.setPosition(menu?heroX:p.x,menu?heroY+Math.sin(t)*7:p.y).setScale(menu?heroScale:1).setRotation(menu?Math.sin(t*.8)*.04:p.vx*.0009);
+   this.playerView.setPosition(menu?heroX:p.x,menu?heroY+Math.sin(t)*7:p.y).setScale((menu?heroScale:1)*PLAYER_SCALE).setRotation(menu?Math.sin(t*.8)*.04:p.vx*.0009);
    const motion=menu?t*8:(m.flapAge<.25?m.flapAge*24:3);this.body.setTexture(`body${Math.floor(motion)%6}`).setFlipX(!menu&&p.vx>10);
    const sway=Math.sin(t*2)*2+(menu?0:-p.vx*.025);this.left.setPosition(-11+sway,-34+Math.sin(t*2)*1.5);this.right.setPosition(11+sway*.6,-38+Math.sin(t*2+.7)*1.5);
    const key=m.streak>=20?'gold':'red';this.left.setTexture(key);this.right.setTexture(key);

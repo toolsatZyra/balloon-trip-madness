@@ -6,3 +6,5 @@
 @media(max-height:600px) and (min-width:701px){.home-copy{top:18%}h1{font-size:76px;margin:20px 0 15px}.lead{font-size:14px!important;margin-bottom:18px!important}.primary{min-height:47px}.controls-hint{margin:10px 0}.edition{bottom:17%}}
 @media(prefers-reduced-motion:reduce){*{transition:none!important}}
 @media(max-width:700px){#touch:not([hidden]){display:flex}}
+
+@media(max-width:480px){#hud{gap:18px}}
