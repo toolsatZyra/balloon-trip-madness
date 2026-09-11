@@ -1,0 +1,50 @@
+[
+  {
+    "path": "balloon.svg",
+    "status": 200,
+    "hashMatches": true,
+    "bytes": 435
+  },
+  {
+    "path": "index.html",
+    "status": 200,
+    "hashMatches": true,
+    "bytes": 3784
+  },
+  {
+    "path": "PHASER-LICENSE.md",
+    "status": 200,
+    "hashMatches": true,
+    "bytes": 1120
+  },
+  {
+    "path": "assets/index-CIJaf1yc.css",
+    "status": 200,
+    "hashMatches": true,
+    "bytes": 7561
+  },
+  {
+    "path": "assets/index-CUqjsNon.js",
+    "status": 200,
+    "hashMatches": true,
+    "bytes": 1228125
+  },
+  {
+    "path": "fonts/dm-sans-bold.ttf",
+    "status": 200,
+    "hashMatches": true,
+    "bytes": 48200
+  },
+  {
+    "path": "fonts/DM-Sans-OFL.txt",
+    "status": 200,
+    "hashMatches": true,
+    "bytes": 4482
+  },
+  {
+    "path": "fonts/dm-sans-regular.ttf",
+    "status": 200,
+    "hashMatches": true,
+    "bytes": 48280
+  }
+]
