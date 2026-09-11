@@ -1,0 +1,8 @@
+{
+  "endpoint": "https://6aa3cdddddca29264e9d9dd3--balloon-fight-zyra.netlify.app/api/game-count",
+  "before": 186,
+  "after": 194,
+  "concurrentLoads": 8,
+  "retriesAdded": 0,
+  "passed": true
+}

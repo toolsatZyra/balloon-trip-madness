@@ -1,4 +1,6 @@
 import './style.css';
+import './game-counter.css';
+import './game-counter.js';
 import {Flight,STEP} from './flight.js';
 import {boot} from './scene.js';
 const $=id=>document.getElementById(id),seed=()=>crypto.getRandomValues(new Uint32Array(1))[0];
